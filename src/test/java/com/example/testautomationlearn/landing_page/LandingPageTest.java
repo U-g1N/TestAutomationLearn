@@ -32,8 +32,8 @@ public class LandingPageTest {
     }
 
     @Test
-    public void search() {
-        landingPage.loginButton.click();
+    public void signInButtonClick() {
+        landingPage.signInButtonClick();
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.testautomationlearn.auth;
 
+import com.example.testautomationlearn.landing_page.LandingPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -12,6 +13,7 @@ import java.time.Duration;
 public class AuthPageTest {
     private WebDriver driver;
     private AuthPage authPage;
+    private LandingPage landingPage;
 
     @BeforeMethod
     public void setUp() {
@@ -21,9 +23,10 @@ public class AuthPageTest {
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.get("https://github.com/login/");
+        driver.get("https://github.com/");
 
         authPage = new AuthPage(driver);
+        landingPage = new LandingPage(driver);
     }
 
     @AfterMethod
@@ -32,10 +35,9 @@ public class AuthPageTest {
     }
 
     @Test
-    public void incorrectCredentials() {
-        authPage.loginField.sendKeys("Test");
-        authPage.passwordField.sendKeys("Test");
-        authPage.signInButton.click();
+    public void testIncorrectCredentials() {
+        landingPage.signInButtonClick();
+        authPage.incorrectCredentials();
         assert (authPage.invalidEmailPasswordMessage.isDisplayed());
     }
 

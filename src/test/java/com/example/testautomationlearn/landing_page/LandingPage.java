@@ -10,6 +10,10 @@ public class LandingPage {
     @FindBy(xpath = "/html/body/div[1]/div[1]/header/div/div[2]/div/div/div/a")
     public WebElement loginButton;
 
+    public void signInButtonClick() {
+        loginButton.click();
+    }
+
     public LandingPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }

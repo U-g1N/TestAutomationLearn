@@ -19,6 +19,12 @@ public class AuthPage {
     @FindBy(xpath = "//*[@id=\"js-flash-container\"]/div/div/div")
     public WebElement invalidEmailPasswordMessage;
 
+    public void incorrectCredentials() {
+        loginField.sendKeys("Test");
+        passwordField.sendKeys("Test");
+        signInButton.click();
+    }
+
     public AuthPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
