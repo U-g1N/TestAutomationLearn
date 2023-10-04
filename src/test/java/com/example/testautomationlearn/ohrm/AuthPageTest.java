@@ -1,4 +1,4 @@
-package com.example.testautomationlearn.landing_page;
+package com.example.testautomationlearn.ohrm;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,9 +9,9 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class LandingPageTest {
+public class AuthPageTest {
     private WebDriver driver;
-    private LandingPage landingPage;
+    private AuthPage authPage;
 
     @BeforeMethod
     public void setUp() {
@@ -21,9 +21,8 @@ public class LandingPageTest {
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.get("https://github.com/");
-
-        landingPage = new LandingPage(driver);
+        driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+        authPage = new AuthPage(driver);
     }
 
     @AfterMethod
@@ -32,8 +31,21 @@ public class LandingPageTest {
     }
 
     @Test
-    public void testSignInButtonClick() {
-        landingPage.signInButtonClick();
+    public void testIncorrectCredentials() {
+        authPage.incorrectCredentials();
+        assert (authPage.invalidEmailPasswordMessage.isDisplayed());
+    }
+
+    @Test
+    public void testCorrectCredentials() {
+        authPage.correctCredentials();
+    }
+
+    @Test
+    public void testLogout() {
+        authPage.correctCredentials();
+        authPage.logout();
+        assert (authPage.loginText.isDisplayed());
     }
 
 }
